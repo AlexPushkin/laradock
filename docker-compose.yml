@@ -7,8 +7,8 @@ services:
     applications:
         image: tianon/true
         volumes:
-            - ../:/var/www
-#            - ../sample/:/var/www/sample
+            - ../code/:/var/www
+            - /home/mort/.ssh:/home/laradock/.ssh
 
 ### Workspace Utilities Container ###########################
 
@@ -35,7 +35,7 @@ services:
             - applications
         extra_hosts:
             # IMPORTANT: Replace with your Docker Host IP (will be appended to /etc/hosts)
-            - "dockerhost:10.0.75.1"
+            - "dockerhost:172.19.0.1"
         ports:
            - "2222:22"
         tty: true
@@ -64,7 +64,7 @@ services:
             - workspace
         extra_hosts:
             # IMPORTANT: Replace with your Docker Host IP (will be appended to /etc/hosts)
-            - "dockerhost:10.0.75.1"
+            - "dockerhost:172.19.0.1"
         environment:
             # IMPORTANT: Set the Remote Interpreter entry matching name to `laravel`
             - PHP_IDE_CONFIG=serverName=laravel
@@ -121,12 +121,10 @@ services:
         build: 
             context: ./mysql
             args:
-                - MYSQL_DATABASE=homestead
-                - MYSQL_USER=homestead
-                - MYSQL_PASSWORD=secret
                 - MYSQL_ROOT_PASSWORD=root
         volumes:
             - mysql:/var/lib/mysql
+            - ../bddumps:/var/dumps
         ports:
             - "3306:3306"
 
@@ -136,6 +134,7 @@ services:
         build: ./mariadb
         volumes:
             - mysql:/var/lib/mysql
+            - ../bddumps:/var/dumps
         ports:
             - "3306:3306"
         environment:
@@ -150,6 +149,7 @@ services:
         build: ./postgres
         volumes:
             - postgres:/var/lib/postgresql/data
+            - ../bddumps:/var/dumps
         ports:
             - "5432:5432"
         environment:
