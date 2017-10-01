@@ -172,7 +172,7 @@ RUN if [ ${INSTALL_OPCACHE} = true ]; then \
 ;fi
 
 # Copy opcache configration
-COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+# COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 #####################################
 # Codeigniter Modifications:
@@ -187,6 +187,8 @@ RUN if [ ${CODEIGNITER} = true ]; then \
 
 RUN apt-get update && apt-get install -y zlib1g-dev libicu-dev g++
 RUN docker-php-ext-install intl
+RUN docker-php-ext-install exif
+RUN apt-get install -y jpegoptim
 
 #
 #--------------------------------------------------------------------------

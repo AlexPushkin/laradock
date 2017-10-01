@@ -342,6 +342,13 @@ RUN if [ ${INSTALL_LINUXBREW} = true ]; then \
 #--------------------------------------------------------------------------
 #
 
+USER root
+RUN apt-get update
+RUN apt-get install -y libav-tools
+RUN apt-get install -y ffmpeg
+RUN apt-get install -y pngquant
+RUN apt-get install -y iputils-ping
+RUN apt-get install -y python
 # Clean up
 USER root
 RUN apt-get clean && \
