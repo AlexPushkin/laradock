@@ -7,7 +7,7 @@ services:
     applications:
         image: tianon/true
         volumes:
-            - ../code/:/var/www
+            - ${APPLICATION}:/var/www
             - /home/mort/.ssh:/home/laradock/.ssh
 
 ### Workspace Utilities Container ###########################
